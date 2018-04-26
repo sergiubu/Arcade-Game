@@ -9,6 +9,9 @@ var Enemy = function(x, y) {
 
     this.x = x;
     this.y = y;
+    //Set enemy initial location
+    this.x = 0;
+    this.y = 120;
 };
 
 // Update the enemy's position, required method for game
