@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(row, speed) {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -7,10 +7,10 @@ var Enemy = function(row, speed) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
-    this.speed = speed;
+    this.speed = ~~(Math.random() * 300) + 100;
     // Set enemy initial location
-    this.x = -100;
-    this.y = 60 + (row - 1) * 80;
+    this.x = x;
+    this.y = y;
 };
 
 // Update the enemy's position, required method for game
@@ -39,8 +39,10 @@ var Player = function() {
 }
 
 Player.prototype.update = function () {
-    this.x = 200;
-    this.y = 380;
+    if (this.y < 0) {
+      this.x = 200;
+      this.y = 380;
+    }
 };
 
 Player.prototype.render = function() {
@@ -58,6 +60,7 @@ Player.prototype.handleInput = function (key) {
     } else if (key === 'down' && this.y < 380) {
         this.y += 80;
     }
+    player.update();
 };
 
 // Now instantiate your objects.
@@ -65,11 +68,6 @@ Player.prototype.handleInput = function (key) {
 allEnemies = [];
 // Place the player object in a variable called player
 var player = new Player();
-
-// Function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function randomNum(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
