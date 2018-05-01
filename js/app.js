@@ -21,7 +21,19 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed * dt;
     if (this.x > 500) this.x = -100;
+
+    // Check if player collides with enemy
+    if (player.y === this.y) {
+      if (player.x > this.x - 80 && player.x < this.x + 80) resetPosition();
+    }
+    // Reset player position after collision
+    function resetPosition() {
+        player.x = 200;
+        player.y = 380;
+    }
 };
+
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -31,14 +43,15 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function() {
-    // Set player initial location
-    this.x = 200;
-    this.y = 380;
+var Player = function(x, y) {
+    this.x = x;
+    this.y = y;
     this.sprite = 'images/char-boy.png';
 }
 
 Player.prototype.update = function () {
+
+    // Check if player reaches top
     if (this.y < 0) {
       this.x = 200;
       this.y = 380;
@@ -67,7 +80,7 @@ Player.prototype.handleInput = function (key) {
 // Place all enemy objects in an array called allEnemies
 allEnemies = [new Enemy(-100, 140), new Enemy(-100, 60), new Enemy(-100, 220)];
 // Place the player object in a variable called player
-var player = new Player();
+var player = new Player(200, 380);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
