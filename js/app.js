@@ -1,6 +1,3 @@
-// Declare times our player was hit by an enemy
-let timesHit = 0;
-
 // Enemies our player must avoid
 var Enemy = function(x, y) {
   // Variables applied to each of our instances go here,
@@ -34,26 +31,26 @@ Enemy.prototype.update = function(dt) {
   function resetPosition() {
     player.x = 200;
     player.y = 380;
-    timesHit++;
+    player.timesHit++;
     playerLives();
   }
 
   // Decrease player lives if hit by enemy
   function playerLives() {
     const hearts = document.querySelectorAll('.heart');
-    if (timesHit === 1) {
+    if (player.timesHit === 1) {
       for (let i = 0; i < 3; i++) {
         if (i > 1) {
           hearts[i].style.visibility = 'collapse';
         }
       }
-    } else if (timesHit === 2) {
+    } else if (player.timesHit === 2) {
       for (let i = 0; i < 3; i++) {
         if (i > 0) {
           hearts[i].style.visibility = 'collapse';
         }
       }
-    } else if (timesHit === 3) {
+    } else if (player.timesHit === 3) {
       console.log('you lost - stop the game');
     }
   }
@@ -73,6 +70,8 @@ var Player = function(x, y) {
   this.y = y;
   this.sprite = 'images/char-boy.png';
 
+  // Set initial times player was hit by an enemy
+  this.timesHit = 0;
   // Set initial times player has reached the top
   this.reachTop = 0;
 }
