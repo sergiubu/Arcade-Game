@@ -24,35 +24,7 @@ Enemy.prototype.update = function(dt) {
 
   // Check if player collides with enemy
   if (player.y === this.y) {
-    if (player.x > this.x - 80 && player.x < this.x + 80) resetPosition();
-  }
-
-  // Reset player position after collision
-  function resetPosition() {
-    player.x = 200;
-    player.y = 380;
-    player.timesHit++;
-    playerLives();
-  }
-
-  // Decrease player lives if hit by enemy
-  function playerLives() {
-    const hearts = document.querySelectorAll('.heart');
-    if (player.timesHit === 1) {
-      for (let i = 0; i < 3; i++) {
-        if (i > 1) {
-          hearts[i].style.visibility = 'collapse';
-        }
-      }
-    } else if (player.timesHit === 2) {
-      for (let i = 0; i < 3; i++) {
-        if (i > 0) {
-          hearts[i].style.visibility = 'collapse';
-        }
-      }
-    } else if (player.timesHit === 3) {
-      console.log('you lost - stop the game');
-    }
+    if (player.x > this.x - 80 && player.x < this.x + 80) player.resetPosition();
   }
 };
 
@@ -64,49 +36,78 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y) {
-  // PLayer position
-  this.x = x;
-  this.y = y;
-  this.sprite = 'images/char-boy.png';
+class Player {
+  constructor(x, y) {
+    // PLayer position
+    this.x = x;
+    this.y = y;
+    this.sprite = 'images/char-boy.png';
+    // Set initial times player was hit by an enemy
+    this.timesHit = 0;
+    // Set initial times player has reached the top
+    this.reachTop = 0;
+  };
 
-  // Set initial times player was hit by an enemy
-  this.timesHit = 0;
-  // Set initial times player has reached the top
-  this.reachTop = 0;
-}
+  // Reset player position after collision
+  resetPosition() {
+    player.x = 200;
+    player.y = 380;
+    player.timesHit++;
+    this.playerLives();
+  };
 
-Player.prototype.update = function() {
-  // Check if player reaches top
-  if (this.y < 0) {
-    this.x = 200;
-    this.y = 380;
-    console.log(this.reachTop);
-    this.reachTop++;
-    // If the player reaches top 3 times, display congratulations modal
-    if (this.reachTop === 3) {
-      console.log('display modal - you win');
+  // Decrease player lives if hit by enemy
+  playerLives() {
+    const hearts = document.querySelectorAll('.heart');
+    if (this.timesHit === 1) {
+      for (let i = 0; i < 3; i++) {
+        if (i > 1) {
+          hearts[i].style.visibility = 'collapse';
+        }
+      }
+    } else if (this.timesHit === 2) {
+      for (let i = 0; i < 3; i++) {
+        if (i > 0) {
+          hearts[i].style.visibility = 'collapse';
+        }
+      }
+    } else if (this.timesHit === 3) {
+      console.log('you lost - stop the game');
     }
-  }
-};
+  };
 
-Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+  update() {
+    // Check if player reaches top
+    if (this.y < 0) {
+      this.x = 200;
+      this.y = 380;
+      console.log(this.reachTop);
+      this.reachTop++;
+      // If the player reaches top 3 times, display congratulations modal
+      if (this.reachTop === 3) {
+        const winModal = document.getElementById('win_modal');
+        winModal.style.display = 'block';
+      }
+    }
+  };
 
-// Handle player movement
-Player.prototype.handleInput = function(key) {
-  if (key === 'left' && this.x > 0) {
-    this.x -= 100;
-  } else if (key === 'right' && this.x < 400) {
-    this.x += 100;
-  } else if (key === 'up' && this.y > 0) {
-    this.y -= 80;
-  } else if (key === 'down' && this.y < 380) {
-    this.y += 80;
-  }
-  player.update();
-};
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  };
+
+  // Handle player movement
+  handleInput(key) {
+    if (key === 'left' && this.x > 0) {
+      this.x -= 100;
+    } else if (key === 'right' && this.x < 400) {
+      this.x += 100;
+    } else if (key === 'up' && this.y > 0) {
+      this.y -= 80;
+    } else if (key === 'down' && this.y < 380) {
+      this.y += 80;
+    }
+  };
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
