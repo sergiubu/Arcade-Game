@@ -72,7 +72,24 @@ class Player {
         }
       }
     } else if (this.timesHit === 3) {
-      console.log('you lost - stop the game');
+      const loseModal = document.getElementById('lose_modal');
+      loseModal.style.display = 'block';
+      document.addEventListener('keydown', e => {
+        if (e.keyCode === 13) {
+          loseModal.style.display = 'none';
+          this.resetPlayerLives();
+        }
+      });
+    }
+  };
+
+  resetPlayerLives() {
+    const hearts = document.querySelectorAll('.heart');
+    this.reachTop = 0;
+    this.timesHit = 0;
+    // Reset player lives
+    for (let i = 0; i < hearts.length; i++) {
+      hearts[i].style.visibility = 'visible';
     }
   };
 
@@ -81,12 +98,16 @@ class Player {
     if (this.y < 0) {
       this.x = 200;
       this.y = 380;
-      console.log(this.reachTop);
       this.reachTop++;
       // If the player reaches top 3 times, display congratulations modal
       if (this.reachTop === 3) {
         const winModal = document.getElementById('win_modal');
+        const rePlay = document.querySelector('.rePlay');
         winModal.style.display = 'block';
+        rePlay.addEventListener('click', _ => {
+          winModal.style.display = 'none';
+          this.resetPlayerLives();
+        });
       }
     }
   };
