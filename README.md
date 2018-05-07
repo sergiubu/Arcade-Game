@@ -1,10 +1,11 @@
 Frontend Nanodegree Arcade Game
 ===============================
 
-## A project made for the Udacity Front-End Nanodegree Program
+A project made for the Udacity Front-End Nanodegree Program
 
 ## How to run
-* Download or clone the game
+* [Play it here](https://sergiubu.github.io/Arcade-Game/)
+* You can also download or clone the game
 * Open `index.html` with your favourite browser
 
 ## How to play
