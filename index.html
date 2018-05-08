@@ -1,36 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Effective JavaScript: Frogger</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Effective JavaScript: Frogger</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <section>
-      <div class="hearts">
-        <img src="images/Heart.png" alt="Heart image" class="heart">
-        <img src="images/Heart.png" alt="Heart image" class="heart">
-        <img src="images/Heart.png" alt="Heart image" class="heart">
-      </div>
-    </section>
-
-    <div class="modal" id="win_modal">
-      <div class="modal_content">
-        <h1>Congratulations!</h1>
-        <h2>You won!</h2>
-        <button class="rePlay">Play again?</button>
-      </div>
+  <section>
+    <div class="hearts">
+      <img src="images/Heart.png" alt="Heart image" class="heart">
+      <img src="images/Heart.png" alt="Heart image" class="heart">
+      <img src="images/Heart.png" alt="Heart image" class="heart">
     </div>
+  </section>
 
-    <div class="modal" id="lose_modal">
-      <div class="modal_content">
-        <h1>You lost :(</h1>
-        <h2>Press Enter to play again</h2>
-      </div>
+  <div class="modal" id="win_modal">
+    <div class="modal_content">
+      <h1>Congratulations!</h1>
+      <h2>You won!</h2>
+      <button class="rePlay">Play again?</button>
     </div>
+  </div>
 
-    <script src="js/resources.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/engine.js"></script>
+  <div class="modal" id="lose_modal">
+    <div class="modal_content">
+      <h1>You lost :(</h1>
+      <h2>Press Enter to play again</h2>
+    </div>
+  </div>
+
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/engine.js"></script>
 </body>
+
 </html>

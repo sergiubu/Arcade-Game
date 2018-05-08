@@ -50,30 +50,35 @@ class Player {
 
   // Reset player position after collision
   resetPosition() {
-    player.x = 200;
-    player.y = 380;
-    player.timesHit++;
+    this.x = 200;
+    this.y = 380;
+    this.timesHit++;
     this.playerLives();
   };
 
   // Decrease player lives if hit by enemy
   playerLives() {
+    // Select hearts
     const hearts = document.querySelectorAll('.heart');
+    // If the player is hit one time, subtract a life
     if (this.timesHit === 1) {
       for (let i = 0; i < 3; i++) {
         if (i > 1) {
           hearts[i].style.visibility = 'collapse';
         }
-      }
+      } // If the player is hit a second time, subtract another life
     } else if (this.timesHit === 2) {
       for (let i = 0; i < 3; i++) {
         if (i > 0) {
           hearts[i].style.visibility = 'collapse';
         }
-      }
+      } // If the player is hit a third time, end the game and display the lose modal
     } else if (this.timesHit === 3) {
+      // Select modal
       const loseModal = document.getElementById('lose_modal');
+      // Switch modal from display none to display block
       loseModal.style.display = 'block';
+      // Add a click event listener to the document
       document.addEventListener('keydown', e => {
         if (e.keyCode === 13) {
           loseModal.style.display = 'none';
@@ -84,6 +89,7 @@ class Player {
   };
 
   resetPlayerLives() {
+    // Select hearts, reset reachTop and timesHit to 0
     const hearts = document.querySelectorAll('.heart');
     this.reachTop = 0;
     this.timesHit = 0;
